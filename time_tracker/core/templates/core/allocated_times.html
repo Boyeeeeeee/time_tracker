@@ -1,0 +1,38 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<div class="container">
+    <h2>Allocated Times</h2>
+
+    {% if allocations %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Goal</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for allocation in allocations %}
+                    <tr>
+                        <td>{{ allocation.goal.title }}</td>
+                        <td>{{ allocation.start_time }}</td>
+                        <td>{{ allocation.end_time }}</td>
+                        <td>
+                            <form method="post" action="{% url 'delete_allocation' allocation.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No allocated times found.</p>
+    {% endif %}
+</div>
+
+{% endblock content %}

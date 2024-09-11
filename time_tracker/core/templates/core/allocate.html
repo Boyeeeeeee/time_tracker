@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+{% block content %}
+    <!-- core/templates/core/allocate.html -->
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary mt-2">Allocate Time</button>
+    </form>
+
+{% endblock %}

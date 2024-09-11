@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% load crispy_forms_tags  %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Your Profile</h2>
+    
+    <div class="row">
+        <!-- Profile Picture and User Info -->
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ user.profile.image.url }}" class="card-img-top img-fluid" alt="Profile Picture">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ user.username }}</h5>
+                    <p class="card-text">{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form to Update Profile -->
+        <div class="col-md-8">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Render username and email fields using Crispy Forms -->
+                {{ u_form|crispy }}
+
+                <!-- Render the profile image field using Crispy Forms -->
+                {{ p_form|crispy }}
+
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

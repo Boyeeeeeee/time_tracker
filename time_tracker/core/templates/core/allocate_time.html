@@ -1,0 +1,28 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<div class="container">
+    <h2>Allocate Time for Goal</h2>
+
+    {% if previous_allocation %}
+        <div class="alert alert-warning" role="alert">
+            You have already allocated time for this goal from {{ previous_allocation.start_time }} to {{ previous_allocation.end_time }}. Submitting this form will override the previous allocation.
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="start_time">Start Time:</label>
+            <input type="datetime-local" id="start_time" name="start_time" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="end_time">End Time:</label>
+            <input type="datetime-local" id="end_time" name="end_time" class="form-control" required>
+        </div>
+        <input type="hidden" name="goal_id" value="{{ goal.id }}">
+        <button type="submit" class="btn btn-primary mt-3">Allocate Time</button>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,77 @@
+{% extends "core/base.html" %}
+
+{% block content %}
+    <div class="container">
+        <h2>Dashboard</h2>
+
+        <!-- Display User Goals -->
+        <section>
+            <h3>Your Goals</h3>
+            {% if goals %}
+                <ul class="list-group">
+                    {% for goal in goals %}
+                        <li class="list-group-item">
+                            <h4>{{ goal.title }}</h4>
+                            <p><strong>Description:</strong> {{ goal.description }}</p>
+                            <p><strong>Estimated Time:</strong> {{ goal.estimated_time }} hours</p>
+                            <p><strong>Priority:</strong> {{ goal.priority }}</p>
+                            <a href="{% url 'update_goal' goal.pk %}" class="btn btn-warning btn-sm">Update</a>
+                            <a href="{% url 'delete_goal' goal.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{% url 'allocate_time' goal.pk %}" class="btn btn-info btn-sm">Allocate Time</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No goals found.</p>
+            {% endif %}
+        </section>
+
+        <!-- Display User Wishes -->
+        <section>
+            <!--<h3>Your Wishes</h3>
+            {% if wishes %}
+                <ul class="list-group">
+                    {% for wish in wishes %}
+                        <li class="list-group-item">
+                            <h4>{{ wish.title }}</h4>
+                            <p><strong>Description:</strong> {{ wish.description }}</p>
+                            <a href="{% url 'update_wish' wish.pk %}" class="btn btn-warning btn-sm">Update</a>
+                            <a href="{% url 'delete_wish' wish.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No wishes found.</p>
+            {% endif %}-->
+        </section>
+    </div>
+
+    <!-- Optional: Add a link to add new goals or wishes -->
+    <div>
+        <a href="{% url 'add_goal' %}" class="btn btn-primary ml-3">Add New Goal</a>
+    </div>
+{% endblock content %}
+
+{% block sidebar %}
+    <!-- Display Your Wishes Section -->
+    <div class="mt-5">
+        <h3 class="pt-4">Your Wishes</h3>
+        {% if wishes %}
+            <ul class="list-group">
+                {% for wish in wishes %}
+                    <li class="list-group-item">
+                        <h4>{{ wish.title }}</h4>
+                        <p><strong>Description:</strong> {{ wish.description }}</p>
+                        <a href="{% url 'update_wish' wish.pk %}" class="btn btn-warning btn-sm">Update</a>
+                        <a href="{% url 'delete_wish' wish.pk %}" class="btn btn-danger btn-sm">Delete</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No wishes found.</p>
+        {% endif %}
+    </div>
+    <div class="">
+        <a href="{% url 'add_wish' %}" class="btn btn-secondary">Add New Wish</a>
+    </div>
+{% endblock sidebar %}
